@@ -1,7 +1,7 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 require('axios-debug-log');
-require('./src/grunt-ext');
+require('./lib');
 
 const envVariables = require('./constants');
 const tasks = require('./src/tasks');

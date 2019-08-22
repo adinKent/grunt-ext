@@ -7,17 +7,39 @@ grunt.task.init = function () { };
 
 initGruntConfig(grunt);
 
+function cacheTaskPayload(taskPayload) {
+  Object.keys(taskPayload).forEach((taskName) => {
+    grunt.setTaskPayload(taskName, taskPayload[taskName]);
+  });
+}
+
 module.exports = {
   runTask(taskName, taskPayload = {}) {
-    Object.keys(taskPayload).forEach((taskName)=>{
-      grunt.setTaskPayload(taskName, taskPayload[taskName]);
-    });
+    cacheTaskPayload(taskPayload);
 
     return new Promise((resolve, fail) => {
-      grunt.tasks([taskName], '', function() {
-        const result = grunt.getTaskResult(taskName);
-        resolve(result);
+      grunt.tasks([taskName], '', () => {
+        const { success, response } = grunt.getTaskResult(taskName);
+        if (success) {
+          resolve(response);
+        } else {
+          fail(response);
+        }
       });
     });
-  }
+  },
+  runTaskNoPrior(taskName, taskPayload = {}) {
+    cacheTaskPayload(taskPayload);
+
+    return new Promise((resolve, fail) => {
+      grunt.tasks([`${taskName}:end`], '', () => {
+        const { success, response } = grunt.getTaskResult(taskName);
+        if (success) {
+          resolve(response);
+        } else {
+          fail(response);
+        }
+      });
+    });
+  },
 };

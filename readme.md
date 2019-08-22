@@ -1,5 +1,5 @@
 # grunt-ext
-Grunt-ext extends Grunt in order to supporting additional features, such as executing task by script, declare tasks by configuration files. 
+Grunt-ext extends Grunt in order to supporting additional features, such as executing task by script, declare tasks by configuration files.
 
 
 ## Installation
@@ -12,18 +12,15 @@ yarn install
 ```JavaScript
 yarn run task <taskName>
 ```
-- To execute a specified task. If taskName is empty, default task is `availabletasks`, the task prints all available task and their description on console. 
-
+- To execute a specified task. If taskName is empty, default task will print all available task and their description on console.
 ```JavaScript
 yarn run task-debug <taskName>
 ```
-- Same as `task`, the difference is that the command will show additional logs on console for debugging. 
-
+- Same as `task`, the difference is that the command will show additional logs on console for debugging.
 ```JavaScript
 yarn run task-windows-debug <taskName>
 ```
-- Same as `task-debug`, the difference is that the command is for debugging on windows platform. 
-
+- Same as `task-debug`, the difference is that the command is for debugging on windows platform.
 ## Task Configs
 ```JavaScript
 {
@@ -33,7 +30,7 @@ yarn run task-windows-debug <taskName>
         /*...*/
     },
     preTasks: [
-        { name: 'preTask1' } // It's a optional configuration. If your task dependends on some prior tasks' results, you could define them by it. 
+        { name: 'preTask1' } // It's a optional configuration. If your task dependends on some prior tasks' results, you could define them by it.
     ],
     task: function(payload) {
         /*...*/  // Main function of your task. Do whatever you want in the function
@@ -42,12 +39,21 @@ yarn run task-windows-debug <taskName>
 ```
 
 ## Task Runner API
+
+- You could trigger task throught `runTask`. First argument is the name of the task you want to execute.
+Second argument is tasks' payloads during execution.
 ```JavaScript
+import taskRunner from 'grunt-ext';
+
 taskRunner#runTask(taskName[, taskPayload]) // A promise instance will be returned
 ```
-You could trigger task throught script. First argument is the name of the task you want to trigger.  
-Second argument is task payload. You could define tasks' required payload during execution.
+- It's similar to function `runTask` but the function won't execute prior tasks even if the task defines priror tasks in configuration file.
+```JavaScript
+import taskRunner from 'grunt-ext';
 
+taskRunner#runTaskNoPrior(taskName[, taskPayload]) // A promise instance will be returned
+```
+For more examples of Task Runner API, please refer [examples](examples).
 ## Examples
 - Task Config
 ```JavaScript
@@ -61,7 +67,7 @@ module.exports = {
     name: 'preTask',
   }],
   task() {
-    const requestUrl = grunt.config.get('mainTask');  
+    const requestUrl = grunt.config.get('mainTask');
     console.log('Execute test task2');
     return 'Result of task2';
   },
@@ -77,7 +83,7 @@ yarn run task MainTask
 import taskRunner from 'grunt-ext';
 
 taskRunner.runTask('MainTask', {
-    preTask: {
+    preTaskName: {
         loginId: 'admin',
         password: 'admin'
     }
