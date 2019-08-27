@@ -19,11 +19,11 @@ module.exports = {
 
     return new Promise((resolve, fail) => {
       grunt.tasks([taskName], '', () => {
-        const { success, response } = grunt.getTaskResult(taskName);
+        const { success, result } = grunt.getTaskResult(taskName);
         if (success) {
-          resolve(response);
+          resolve(result);
         } else {
-          fail(response);
+          fail(result);
         }
       });
     });
@@ -33,11 +33,11 @@ module.exports = {
 
     return new Promise((resolve, fail) => {
       grunt.tasks([`${taskName}:end`], '', () => {
-        const { success, response } = grunt.getTaskResult(taskName);
+        const { success, result } = grunt.getTaskResult(taskName);
         if (success) {
-          resolve(response);
+          resolve(result);
         } else {
-          fail(response);
+          fail(result);
         }
       });
     });

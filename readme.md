@@ -117,3 +117,4 @@ taskRunner.runTask('MainTask', {
 ## Resources
 - [Grunt](https://gruntjs.com/)
 - [Visual Studio Code Extension - Task Panel](https://marketplace.visualstudio.com/items?itemName=BitLaboratory.task-panel)
+- [JSDoc](https://devdocs.io/jsdoc/)
