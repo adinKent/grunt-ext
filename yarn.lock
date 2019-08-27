@@ -252,6 +252,11 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
+braintree-jsdoc-template@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/braintree-jsdoc-template/-/braintree-jsdoc-template-3.3.0.tgz#6a98a8c209673caab752e19dfa4408850a9439fe"
+  integrity sha512-sjkq3w1Dt1HO/yKa2WzFpsi+cuO5qv0kD2kHl6T0amdrnQX9T7sQBBde56iYR1dzXFYMXyh7ti/662v9/00bGw==
+
 callsites@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"

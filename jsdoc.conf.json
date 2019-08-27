@@ -2,7 +2,19 @@
   "source": {
     "include": ["./src/tasks"]
   },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "templates": {
+    "referenceTitle": "grunt-ext",
+    "collapse": true,
+    "resources": {
+      "github": "https://github.com/adinKent/grunt-ext"
+    }
+  },
   "opts": {
-    "destination": "./jsdoc/"
+    "recurse": true,
+    "destination": "./jsdoc/",
+    "template": "node_modules/braintree-jsdoc-template"
   }
 }

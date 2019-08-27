@@ -1,5 +1,5 @@
 /**
- * Task sampleTask.
+ * It's a sample task
  * @module sampleTask
  */
 module.exports = {
@@ -8,10 +8,12 @@ module.exports = {
   /**
    * Execute task
    * @param {object} payload - The task's require data
-   * @return {string} The result of taksk.
+   * @return {string} The task's return data
+   * @example <caption>Output</caption>
+   * Task Result.
   */
   task(payload) {
     console.log('Execute sample task');
-    return 'task reulst';
+    return 'Task reulst';
   },
 };

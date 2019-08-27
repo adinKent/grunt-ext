@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",
+    "braintree-jsdoc-template": "^3.3.0",
     "eslint": "^6.2.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",

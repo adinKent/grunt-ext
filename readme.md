@@ -21,6 +21,10 @@ yarn run task-debug <taskName>
 yarn run task-windows-debug <taskName>
 ```
 - Same as `task-debug`, the difference is that the command is for debugging on windows platform.
+```JavaScript
+yarn run create-task-doc
+```
+- Create JSDoc of all tasks
 ## Task Configs
 ```JavaScript
 {
@@ -43,34 +47,50 @@ yarn run task-windows-debug <taskName>
 - You could trigger task throught `runTask`. First argument is the name of the task you want to execute.
 Second argument is tasks' payloads during execution.
 ```JavaScript
-import taskRunner from 'grunt-ext';
-
 taskRunner#runTask(taskName[, taskPayload]) // A promise instance will be returned
 ```
 - It's similar to function `runTask` but the function won't execute prior tasks even if the task defines priror tasks in configuration file.
 ```JavaScript
-import taskRunner from 'grunt-ext';
-
 taskRunner#runTaskNoPrior(taskName[, taskPayload]) // A promise instance will be returned
 ```
 For more examples of Task Runner API, please refer [examples](examples).
 ## Examples
 - Task Config
 ```JavaScript
+/**
+ * It's a a main task
+ * @module MainTask
+ */
 module.exports = {
   name: 'MainTask',
   desc: 'It\'s a main task',
   config: {
     requestUrl: 'https://www.google.com.tw',
   },
+  /**
+   * @description [preTask]{@link module:preTask}
+   */
   preTasks: [{
     name: 'preTask',
   }],
-  task() {
+  /**
+   * Execute task
+   * @param {object} payload - The task's require data
+   * @param {string} payload.input Input String
+   * @return {string} The task's return data
+   * @example <caption>Payload</caption>
+   * {
+   *   input: 'Input String'
+   * }
+   * @example <caption>Output</caption>
+   * Task Result.
+  */
+  task(payload) {
     const requestUrl = grunt.config.get('mainTask');
-    console.log('Execute test task2');
-    return 'Result of task2';
-  },
+    console.log('Execute Main Task');
+    console.log('Payload: ', payload);
+    return 'Result of main task';
+  }
 };
 ```
 - Trigger task by cli
@@ -83,12 +103,14 @@ yarn run task MainTask
 import taskRunner from 'grunt-ext';
 
 taskRunner.runTask('MainTask', {
-    preTaskName: {
-        loginId: 'admin',
-        password: 'admin'
-    }
+  preTaskName: {
+    loginId: 'admin',
+    password: 'admin'
+  }
 }).then((result) => {
-  console.log('get task result: ', result);
+  console.log('Get task result: ', result);
+}).catch((error) => {
+  console.log('Your error handling');
 });
 ```
 
